@@ -1,0 +1,6 @@
+2025-08-04 13:49:58,782 - INFO - Starting Enhanced Wafer Defect Detection GUI
+2025-08-04 13:49:59,189 - INFO - Dataset loaded successfully: ../Resize_Dataset.npz
+2025-08-04 13:49:59,505 - INFO - Found 114045 images
+2025-08-04 13:50:00,612 - INFO - Enhanced Wafer GUI initialized successfully
+2025-08-04 13:50:03,961 - INFO - Matrix cleared
+2025-08-04 13:51:38,023 - INFO - GUI session ended
