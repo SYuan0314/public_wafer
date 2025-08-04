@@ -39,6 +39,9 @@ class MatrixGUI:
         # 初始化矩陣顯示
         self.generate_matrix()
         
+        # 設置點擊事件處理
+        self.setup_click_handler()
+        
     def setup_controls(self):
         """設置控制面板"""
         self.control_ax.set_xlim(0, 1)
@@ -90,6 +93,14 @@ class MatrixGUI:
         y_pos -= 0.04
         self.control_ax.text(0.05, y_pos, '■ 2: Type 2', fontsize=10, color='#f44336')
         
+        # === 編輯說明 ===
+        y_pos -= 0.08
+        self.control_ax.text(0.05, y_pos, 'Edit Mode:', fontsize=12, fontweight='bold')
+        y_pos -= 0.05
+        self.control_ax.text(0.05, y_pos, '點擊格子可切換值', fontsize=10, style='italic', color='blue')
+        y_pos -= 0.04
+        self.control_ax.text(0.05, y_pos, '(0 → 1 → 2 → 0)', fontsize=9, color='gray')
+        
         # === 狀態顯示 ===
         y_pos = 0.18
         self.control_ax.text(0.05, y_pos, 'Status:', fontsize=12, fontweight='bold')
@@ -140,17 +151,21 @@ class MatrixGUI:
         self.status_text.set_bbox(dict(boxstyle='round,pad=0.3', facecolor='lightcoral', alpha=0.7))
         plt.draw()
     
-    def update_status(self):
+    def update_status(self, message=None):
         """更新狀態顯示"""
-        self.status_text.set_text(f'Size: {self.size}x{self.size}')
-        self.status_text.set_bbox(dict(boxstyle='round,pad=0.3', facecolor='lightgreen', alpha=0.7))
+        base_text = f'Size: {self.size}x{self.size}'
+        display_text = f'{base_text} | {message}' if message else base_text
+        color = 'lightcyan' if message else 'lightgreen'
+        
+        self.status_text.set_text(display_text)
+        self.status_text.set_bbox(dict(boxstyle='round,pad=0.3', facecolor=color, alpha=0.7))
         plt.draw()
     
     def load_dataset(self):
         """載入數據集"""
         try:
-            if os.path.exists('./Resize_Dataset.npz'):
-                self.dataset = np.load('./Resize_Dataset.npz')
+            if os.path.exists('../Resize_Dataset.npz'):
+                self.dataset = np.load('../Resize_Dataset.npz')
                 self.update_dataset_status(f'Dataset loaded: {self.dataset["image"].shape[0]} images')
             else:
                 self.update_dataset_status('Dataset not found')
@@ -238,6 +253,44 @@ class MatrixGUI:
         self.matrix_ax.set_aspect('equal')
         
         plt.draw()
+    
+    def setup_click_handler(self):
+        """設置點擊事件處理器"""
+        self.matrix_ax.figure.canvas.mpl_connect('button_press_event', self.on_matrix_click)
+    
+    def on_matrix_click(self, event):
+        """處理矩陣點擊事件"""
+        # 檢查點擊是否在矩陣區域內
+        if event.inaxes != self.matrix_ax:
+            return
+        
+        # 獲取點擊座標
+        x, y = event.xdata, event.ydata
+        if x is None or y is None:
+            return
+        
+        # 轉換為矩陣索引
+        col = int(x)
+        row = self.size - 1 - int(y)  # 因為y軸是倒置的
+        
+        # 檢查索引是否有效且矩陣已初始化
+        if (0 <= row < self.size and 0 <= col < self.size and 
+            self.matrix_values is not None):
+            # 循環切換值 (0 -> 1 -> 2 -> 0)
+            current_value = self.matrix_values[row][col]
+            new_value = (current_value + 1) % 3
+            self.matrix_values[row][col] = new_value
+            
+            # 重新繪製矩陣
+            self.draw_matrix()
+            
+            # 更新狀態顯示
+            self.update_edit_status(row, col, current_value, new_value)
+    
+    def update_edit_status(self, row, col, old_value, new_value):
+        """更新編輯狀態顯示"""
+        edit_msg = f'編輯: ({col},{row}) {old_value}→{new_value}'
+        self.update_status(edit_msg)
 
 def main():
     """主函數"""
