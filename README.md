@@ -1,4 +1,4 @@
-# Wafer Defect Detection and Visualization Toolki
+# Wafer Defect Detection and Visualization Toolkit
 
 An advanced deep learning-based wafer defect detection system, integrating interactive data visualization and analysis tool.
 
@@ -101,6 +101,6 @@ Contributions are welcome! Please submit issues and pull requests to help improv
 
 ## 📄 License
 
-This project is licensed under the MIT Licens
+This project is licensed under the MIT License.
 
   
