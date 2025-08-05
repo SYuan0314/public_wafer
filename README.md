@@ -20,7 +20,7 @@ This project aims to develop an automated defect detection and analysis system f
 - Real-time coordinate display and transformation
 - Defect type color coding
 - Adjustable matrix size (25x25 to 65x65)
-- Dataset loading and browsin
+- Dataset loading and browsing
 
 ## 🛠️ Installation & Environment Setup
 
@@ -43,7 +43,7 @@ python wafer_flip.py
 ```
 - Click buttons to perform grid rotation
 - Observe coordinate transformation process
-- Use the reset function to return to the initial st
+- Use the reset function to return to the initial state
 
 ### 2. Wafer Defect Visualization GUI
 ```bash
@@ -64,7 +64,7 @@ See the Jupyter Notebooks for detailed model training and evaluation:
 ```
 public_wafer/
 ├── wafer_flip.py              # Interactive grid rotation tool
-├── wafer_defect_GUI.py        # Wafer defect GUI inter
+├── wafer_defect_GUI.py        # Wafer defect GUI interface
 ├── wafer_flip.ipynb           # Grid rotation demo notebook
 ├── Local_EffientNet_b0.ipynb  # EfficientNet model notebook
 ├── mobilenet_v2_l.ipynb       # MobileNet model notebook
@@ -74,7 +74,7 @@ public_wafer/
 
 ## 🎯 Technical Highlights
 
-- **Interactive Design**: Intuitive GUI for data explora
+- **Interactive Design**: Intuitive GUI for data exploration
 - **Multi-angle Analysis**: Supports data rotation to enhance model training
 - **Real-time Visualization**: Instantly displays coordinate transformations and defect distributions
 - **Modular Architecture**: Independent functional modules for easy maintenance and extension
@@ -85,7 +85,7 @@ public_wafer/
 - Wafer defect pattern recognition
 - Process parameter optimization analysis
 - Data augmentation and preprocessing
-- Engineer training and educatio
+- Engineer training and education
 
   ## 📈 Future Development
 
@@ -93,7 +93,7 @@ public_wafer/
 - [ ] Batch processing functionality
 - [ ] Integration of additional deep learning models
 - [ ] API interface
-- [ ] GUI user experience optimizat
+- [ ] GUI user experience optimization
 
 ## 🤝 Contribution
 
